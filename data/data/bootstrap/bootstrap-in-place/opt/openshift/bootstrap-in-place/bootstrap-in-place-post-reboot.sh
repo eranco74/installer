@@ -46,6 +46,15 @@ function approve_csr {
   fi
 }
 
+function patch_ingress {
+  echo "patch ingress operator to run a single router pod"
+  while ! oc patch -n openshift-ingress-operator ingresscontroller/default --patch '{"spec":{"replicas": 1}}' --type=merge;
+  do
+    echo "Still waiting to patch ingress ..."
+    sleep 3
+  done
+}
+
 function wait_for_cvo {
   echo "Waiting for cvo"
   until [ "$(oc get clusterversion -o jsonpath='{.items[0].status.conditions[?(@.type=="Available")].status}')" == "True" ];
@@ -64,5 +73,6 @@ function clean {
 
 wait_for_api
 approve_csr
+patch_ingress
 wait_for_cvo
 clean

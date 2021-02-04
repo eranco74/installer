@@ -144,7 +144,7 @@ type InstallConfig struct {
 
 	// BootstrapInPlace is the configuration for installing single node
 	// with bootstrap in place installation.
-	BootstrapInPlace `json:"BootstrapInPlace"`
+	BootstrapInPlace *BootstrapInPlace `json:"BootstrapInPlace"`
 }
 
 // ClusterDomain returns the DNS domain that all records for a cluster must belong to.
@@ -346,8 +346,9 @@ const (
 	PassthroughCredentialsMode CredentialsMode = "Passthrough"
 )
 
+
 // BootstrapInPlace defines the configuration for bootstrap-in-place installation
-type BootstrapInPlace struce {
+type BootstrapInPlace struct {
 	// InstallationDisk is the target disk drive for coreos-installer
 	InstallationDisk string `json:"installationDisk"`
 }

@@ -51,6 +51,3 @@ if [ ! -f master-ignition.done ]; then
 
   touch master-ignition.done
 fi
-
-echo "Done"
-echo "To complete the installation execute: 'coreos-installer install -i /opt/openshift/master.ign <device>' and reboot the node"

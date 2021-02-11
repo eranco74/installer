@@ -61,7 +61,8 @@ func (a *SingleNodeBootstrapInPlace) Generate(dependencies asset.Parents) error 
 		return err
 	}
 	templateData, err := a.Bootstrap.getTemplateData(installConfig.Config, releaseImage.PullSpec, installConfig.Config.ImageContentSources, proxy.Config, rhcosImage, ironicCreds)
-
+	templateData.BootstrapInPlace = installConfig.Config.BootstrapInPlace
+	a.Bootstrap.templateData = templateData
 	if err = a.Bootstrap.Generate(dependencies); err != nil {
 		return err
 	}

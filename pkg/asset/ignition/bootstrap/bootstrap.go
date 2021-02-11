@@ -73,6 +73,7 @@ type platformTemplateData struct {
 type Bootstrap struct {
 	Config *igntypes.Config
 	File   *asset.File
+	templateData *bootstrapTemplateData
 }
 
 var _ asset.WritableAsset = (*Bootstrap)(nil)
@@ -150,7 +151,7 @@ func (a *Bootstrap) Generate(dependencies asset.Parents) error {
 	ironicCreds := &baremetal.IronicCreds{}
 	dependencies.Get(installConfig, proxy, releaseImage, rhcosImage, bootstrapSSHKeyPair, ironicCreds)
 
-	templateData, err := a.getTemplateData(installConfig.Config, releaseImage.PullSpec, installConfig.Config.ImageContentSources, proxy.Config, rhcosImage, ironicCreds)
+	a.templateData, err := a.getTemplateData(installConfig.Config, releaseImage.PullSpec, installConfig.Config.ImageContentSources, proxy.Config, rhcosImage, ironicCreds)
 
 	if err != nil {
 		return errors.Wrap(err, "failed to get bootstrap templates")
@@ -280,7 +281,7 @@ func (a *Bootstrap) getTemplateData(installConfig *types.InstallConfig, releaseI
 		BootImage:             string(*rhcosImage),
 		PlatformData:          platformData,
 		ClusterProfile:        clusterProfile,
-		BootstrapInPlace:      installConfig.BootstrapInPlace,
+		BootstrapInPlace:      nil,
 	}, nil
 }
 

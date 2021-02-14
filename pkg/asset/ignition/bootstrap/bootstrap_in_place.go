@@ -33,6 +33,9 @@ var _ asset.Asset = (*SingleNodeBootstrapInPlace)(nil)
 
 // Dependencies returns no dependencies.
 func (a *SingleNodeBootstrapInPlace) Dependencies() []asset.Asset {
+	if a.Bootstrap == nil{
+		a.Bootstrap = &Bootstrap{}
+	}
 	a.Bootstrap.bootstrapInPlace = true
 	return a.Bootstrap.Dependencies()
 }

@@ -62,19 +62,19 @@ func (a *SingleNodeBootstrapInPlace) Generate(dependencies asset.Parents) error 
 	if err := verifyBootstrapInPlace(installConfig.Config); err != nil {
 		return err
 	}
-	templateData, err := a.Bootstrap.getTemplateData(installConfig.Config, releaseImage.PullSpec, installConfig.Config.ImageContentSources, proxy.Config, rhcosImage, ironicCreds)
+	// templateData, err := a.Bootstrap.getTemplateData(installConfig.Config, releaseImage.PullSpec, installConfig.Config.ImageContentSources, proxy.Config, rhcosImage, ironicCreds)
 
-	if err = a.Bootstrap.Generate(dependencies); err != nil {
+	if err := a.Bootstrap.Generate(dependencies); err != nil {
 		return err
 	}
-	err = a.Bootstrap.addStorageFiles("/", "bootstrap/bootstrap-in-place/files", templateData)
-	if err != nil {
-		return err
-	}
-	err = a.Bootstrap.addSystemdUnits("bootstrap/bootstrap-in-place/systemd/units", templateData)
-	if err != nil {
-		return err
-	}
+	// err = a.Bootstrap.addStorageFiles("/", "bootstrap/bootstrap-in-place/files", templateData)
+	// if err != nil {
+	// 	return err
+	// }
+	// err = a.Bootstrap.addSystemdUnits("bootstrap/bootstrap-in-place/systemd/units", templateData)
+	// if err != nil {
+	// 	return err
+	// }
 
 	a.Config = a.Bootstrap.Config
 	a.File = &asset.File{

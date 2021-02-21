@@ -1,6 +1,7 @@
 clean:
 	./hack/virt-delete-aio.sh || true
-	rm -rf mydir
+	rm -rf mydir zezere
+	docker rm -f zezere
 
 generate:
 	mkdir mydir
@@ -13,9 +14,14 @@ start:
 network:
 	./hack/virt-create-net.sh
 
+serve-ign:
+	mkdir -p zezere
+	cp cp mydir/aio.ign ./zezere/52:54:00:ee:42:e1
+	chmod 777 ./zezere/52:54:00:ee:42:e1
+	docker run --name zezere -v `pwd`/zezere:/usr/share/nginx/html/zezere/netboot/x86_64/ignition:ro,Z -p 37507:80 -d nginx
+
 ssh:
-	chmod 400 ./hack/ssh/key
-	ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ./hack/ssh/key core@192.168.126.10
+	ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@192.168.126.10
 
 image:
 	curl -O -L https://releases-art-rhcos.svc.ci.openshift.org/art/storage/releases/rhcos-4.6/46.82.202008181646-0/x86_64/rhcos-46.82.202008181646-0-qemu.x86_64.qcow2.gz

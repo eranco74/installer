@@ -10,7 +10,7 @@ sudo chown qemu:qemu "${IGNITION_CONFIG}"
 sudo restorecon "${IGNITION_CONFIG}"
 
 #RHCOS_IMAGE="/tmp/rhcos-47.83.202101161239-0-qemu.x86_64.qcow2"
-RHCOS_IMAGE="/home/ravbrown/work/fedoraiot/fedora33-IOT.qcow2"
+RHCOS_IMAGE="/var/lib/libvirt/images/ushift.qcow2"
 VM_NAME="aio-test"
 OS_VARIANT="fedora33"
 #OS_VARIANT="rhel8.1"

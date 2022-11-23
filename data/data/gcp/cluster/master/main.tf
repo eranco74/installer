@@ -61,6 +61,13 @@ resource "google_compute_instance" "master" {
     kms_key_self_link = var.root_volume_kms_key_link
   }
 
+  confidential_instance_config {
+    enable_confidential_compute = true
+  }
+
+  scheduling {
+    on_host_maintenance = "TERMINATE"
+  }
   network_interface {
     subnetwork = var.subnet
   }

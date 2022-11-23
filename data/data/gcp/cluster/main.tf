@@ -100,6 +100,15 @@ resource "google_compute_image" "cluster" {
   guest_os_features {
     type = "UEFI_COMPATIBLE"
   }
+  guest_os_features {
+    type = "GVNIC"
+  }
+  guest_os_features {
+    type = "VIRTIO_SCSI_MULTIQUEUE"
+  }
+  guest_os_features {
+    type = "SEV_CAPABLE"
+  }
 
   raw_disk {
     source = var.gcp_image_uri

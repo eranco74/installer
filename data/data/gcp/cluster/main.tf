@@ -33,11 +33,13 @@ module "master" {
   subnet          = module.network.master_subnet
   zones           = distinct(var.gcp_master_availability_zones)
   secure_boot     = var.gcp_master_secure_boot
-
   root_volume_size = var.gcp_master_root_volume_size
   root_volume_type = var.gcp_master_root_volume_type
 
   root_volume_kms_key_link = var.gcp_root_volume_kms_key_link
+
+  confidential_compute = var.gcp_master_confidential_compute
+  on_host_maintenance  = var.gcp_master_on_host_maintenance
 
   tags   = var.gcp_control_plane_tags
   labels = local.labels

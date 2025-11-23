@@ -1,8 +1,6 @@
 module github.com/openshift/installer
 
-go 1.24.0
-
-toolchain go1.24.5
+go 1.25.3
 
 require (
 	cloud.google.com/go/kms v1.22.0
@@ -167,8 +165,16 @@ require (
 	github.com/envoyproxy/protoc-gen-validate v1.2.1 // indirect
 	github.com/evanphx/json-patch v5.9.11+incompatible // indirect
 	github.com/go-jose/go-jose/v4 v4.1.2 // indirect
+	github.com/google/jsonschema-go v0.3.0 // indirect
+	github.com/modelcontextprotocol/go-sdk v1.1.0 // indirect
+	github.com/openai/openai-go v1.12.0 // indirect
+	github.com/paulczar/cobra-mcp v1.0.0 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10 // indirect
 	github.com/spiffe/go-spiffe/v2 v2.5.0 // indirect
+	github.com/tidwall/gjson v1.14.4 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.1 // indirect
+	github.com/tidwall/sjson v1.2.5 // indirect
 	github.com/zeebo/errs v1.4.0 // indirect
 	go.opentelemetry.io/contrib/detectors/gcp v1.36.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.38.0 // indirect

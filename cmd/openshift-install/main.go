@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
+	cobra_mcp "github.com/paulczar/cobra-mcp/pkg"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -63,7 +64,21 @@ func installerMain() {
 	} {
 		rootCmd.AddCommand(subCmd)
 	}
+	mcpConfig := cobra_mcp.ServerConfig{
+		Name:              "openshift-installer-mcp-server",
+		ToolPrefix:        "ocp_installer",
+		DangerousCommands: []string{"delete", "destroy"},
+	}
+	rootCmd.AddCommand(cobra_mcp.NewMCPServeCommand(rootCmd, &mcpConfig))
 
+	chatConfig := cobra_mcp.ChatConfig{
+		APIKey:            "your-api-key",
+		APIURL:            "", // Optional custom API URL
+		Model:             "gpt-4",
+		Debug:             false, // Enable debug output showing tool calls and parameters
+		SystemMessage: "you are the OpenShift Installation Expert, an AI agent specialized in the planning, configuration, and initiation of Red Hat OpenShift Clusters. Your sole purpose is to guide users through the process of setting up a valid OpenShift installation environment and executing the initial cluster deployment using the ocp_installer tool",
+	}
+	rootCmd.AddCommand(cobra_mcp.NewChatCommand(rootCmd, &chatConfig, &mcpConfig))
 	if err := rootCmd.Execute(); err != nil {
 		logrus.Fatalf("Error executing openshift-install: %v", err)
 	}
